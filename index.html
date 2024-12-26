@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All-in-One Converter</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  
+  <style>
+    body {
+      background-color: #f4f4f9;
+      font-family: 'Arial', sans-serif;
+      background-image: url("hand-drawn-translation-services-illustration_52683-154825.jpg");
+      height: auto;
+      width: auto;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .container {
+      background-color: black;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #4CAF50;
+      font-size: 2.5rem;
+    }
+
+    h3 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .form-select {
+      border-radius: 8px;
+    }
+
+    .btn {
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 1.1rem;
+    }
+
+    .btn-primary {
+      background-color: #4CAF50;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #45a049;
+    }
+
+    .conversion-form {
+      margin-top: 30px;
+      display: none;
+    }
+
+    .conversion-form.active {
+      display: block;
+    }
+
+    .mt-3 {
+      margin-top: 20px;
+    }
+
+    .mt-2 {
+      margin-top: 15px;
+    }
+
+    select, input {
+      margin-bottom: 10px;
+    }
+
+    #currencyConversion h3 {
+      color: #E67300;
+    }
+
+    .row {
+      margin-top: 20px;
+    }
+    
+    .text-center {
+      font-weight: bold;
+    }
+
+    .conversion-form button {
+      width: 100%;
+    }
+
+    /* NavBar Styling */
+    .navbar-brand {
+      color: #4CAF50 !important;
+    }
+
+    .navbar-nav .nav-link {
+      color: #333 !important;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #4CAF50 !important;
+    }
+
+    .navbar {
+      margin-bottom: 20px;
+    }
+
+    .result {
+  color: white;
+}
+  </style>
+  <script src="demo.js"></script>
+</head>                           
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">Unit Converter</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="signup.html">Sign Up</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container mt-5">
+    <h1 class="text-center">All-in-One Unit Converter</h1>
+    
+    <div class="row">
+      <div class="length">
+        <h3>Select Conversion Type</h3>
+        <select id="conversionType" class="form-select" onchange="showConversionFields()">
+          <option value="length">Length</option>
+          <option value="weight">Weight</option>
+          <option value="temperature">Temperature</option>
+          <option value="currency">Currency</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="lengthConversion" class="conversion-form mt-3">
+      <h3>Length Conversion</h3>
+      <input type="number" id="lengthValue" class="form-control" placeholder="Enter value" />
+      <div class="mt-2">
+        <select id="fromLength" class="form-select">
+          <option value="meters">Meters</option>
+          <option value="kilometers">Kilometers</option>
+          <option value="miles">Miles</option>
+        </select>
+        <select id="toLength" class="form-select mt-2">
+          <option value="meters">Meters</option>
+          <option value="kilometers">Kilometers</option>
+          <option value="miles">Miles</option>
+        </select>
+      </div>
+      <button class="btn btn-primary mt-2" onclick="convertLength()">Convert</button>
+      <div id="lengthResult" class="result"></div>
+    </div>
+
+    <div id="weightConversion" class="conversion-form mt-3" style="display: none;">
+      <h3>Weight Conversion</h3>
+      <input type="number" id="weightValue" class="form-control" placeholder="Enter value" />
+      <div class="mt-2">
+        <select id="fromWeight" class="form-select">
+          <option value="kilograms">Kilograms</option>
+          <option value="pounds">Pounds</option>
+          <option value="grams">Grams</option>
+        </select>
+        <select id="toWeight" class="form-select mt-2">
+          <option value="kilograms">Kilograms</option>
+          <option value="pounds">Pounds</option>
+          <option value="grams">Grams</option>
+        </select>
+      </div>
+      <button class="btn btn-primary mt-2" onclick="convertWeight()">Convert</button>
+      <div id="weightResult" class="result"></div>
+    </div>
+
+    <div id="temperatureConversion" class="conversion-form mt-3" style="display: none;">
+      <h3>Temperature Conversion</h3>
+      <input type="number" id="tempValue" class="form-control" placeholder="Enter value" />
+      <div class="mt-2">
+        <select id="fromTemp" class="form-select">
+          <option value="celsius">Celsius</option>
+          <option value="fahrenheit">Fahrenheit</option>
+          <option value="kelvin">Kelvin</option>
+        </select>
+        <select id="toTemp" class="form-select mt-2">
+          <option value="celsius">Celsius</option>
+          <option value="fahrenheit">Fahrenheit</option>
+          <option value="kelvin">Kelvin</option>
+        </select>
+      </div>
+      <button class="btn btn-primary mt-2" onclick="convertTemperature()">Convert</button>
+      <div id="tempResult" class="result"></div>
+    </div>
+
+    <div id="currencyConversion" class="conversion-form mt-3" style="display: none;">
+      <h3>Currency Converter (Premium)</h3>
+      <input type="number" id="currencyValue" class="form-control" placeholder="Enter amount" />
+      <div class="mt-2">
+        <select id="fromCurrency" class="form-select">
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="INR">INR</option>
+        </select>
+        <select id="toCurrency" class="form-select mt-2">
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="INR">INR</option>
+        </select>
+      </div>
+      <button class="btn btn-primary mt-2" onclick="convertCurrency()">Convert</button>
+      <div id="currencyResult" class="result"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
